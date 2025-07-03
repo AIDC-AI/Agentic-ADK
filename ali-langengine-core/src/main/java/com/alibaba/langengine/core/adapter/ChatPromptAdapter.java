@@ -20,7 +20,7 @@ import com.alibaba.langengine.core.memory.BaseChatMessageHistory;
 import com.alibaba.langengine.core.memory.BaseMemory;
 
 public interface ChatPromptAdapter {
-    LLMChain wrap(LLMChain llm) ;
+    LLMChain wrap(LLMChain llm);
 
     BaseMemory wrap(BaseMemory memory);
 
