@@ -5,8 +5,8 @@
     "dev": "turbo dev",
     "prepare": "husky",
     "reinstall": "pnpm -r exec del node_modules .turbo src/.umi* dist logs run && del .turbo && pnpm install",
-    "start": "docker-compose -f docker-compose.yml -f docker-compose-db.yml --env-file ./server/.env up --build -d",
-    "start:db": "docker-compose -f docker-compose-db.yml --env-file ./server/.env up -d"
+    "start": "docker compose -f docker-compose.yml -f docker-compose-db.yml --env-file ./server/.env up --build -d",
+    "start:db": "docker compose -f docker-compose-db.yml --env-file ./server/.env up -d"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
@@ -26,7 +26,7 @@
   },
   "packageManager": "pnpm@9.15.0",
   "engines": {
-    "node": "20.18.0",
-    "pnpm": "9.15.0"
+    "node": "^20",
+    "pnpm": "^9.15"
   }
 }

@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   # 数据库
   ali-langengine-frontend-postgres:

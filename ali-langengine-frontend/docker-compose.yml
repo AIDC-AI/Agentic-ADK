@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   # 前端
   ali-langengine-frontend-web:
