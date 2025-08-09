@@ -67,11 +67,11 @@
         <!-- sqlite end -->
 
         <!-- tddl start -->
-        <dependency>
-            <groupId>com.taobao.tddl</groupId>
-            <artifactId>tddl-client</artifactId>
-            <version>5.2.18-6</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.taobao.tddl</groupId>-->
+<!--            <artifactId>tddl-client</artifactId>-->
+<!--            <version>5.2.18-6</version>-->
+<!--        </dependency>-->
         <!-- tddl end -->
 
         <!-- eagleeye start -->

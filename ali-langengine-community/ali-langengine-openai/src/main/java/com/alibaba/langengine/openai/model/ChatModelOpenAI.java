@@ -185,7 +185,7 @@ public class ChatModelOpenAI extends BaseChatModel<ChatCompletionRequest> {
         AtomicReference<ResponseCollector> argumentContent = new AtomicReference<>(new ResponseCollector(sseInc));
         AtomicReference<String> role = new AtomicReference<>();
         service.streamChatCompletion(request)
-                .doOnError(Throwable::printStackTrace)
+                .doOnError(e -> e.printStackTrace())
                 .blockingForEach(e -> {
                     log.info("chunk result is {}", JSON.toJSONString(e));
                     if(CollectionUtils.isEmpty(e.getChoices())) {
