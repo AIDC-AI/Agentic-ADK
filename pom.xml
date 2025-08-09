@@ -64,19 +64,18 @@
 
 	<modules>
 		<module>ali-langengine-core</module>
-
+		<module>ali-langengine-demo</module>
 
 		<module>ali-langengine-infrastructure/ali-langengine-docloader</module>
 		<module>ali-langengine-infrastructure/ali-langengine-tool</module>
 <!--		<module>ali-langengine-infrastructure/ali-langengine-mcp</module>-->
-
+		<module>ali-langengine-infrastructure/ali-langengine-deepsearch</module>
 		<module>ali-langengine-infrastructure/ali-langengine-gpt</module>
 		<module>ali-langengine-infrastructure/ali-langengine-mcp-jdk8</module>
 
 		<module>ali-langengine-community/ali-langengine-openai</module>
 		<module>ali-langengine-community/ali-langengine-azure</module>
 		<module>ali-langengine-community/ali-langengine-dashscope</module>
-		<module>ali-langengine-infrastructure/ali-langengine-deepsearch</module>
 		<module>ali-langengine-community/ali-langengine-gemini</module>
 		<module>ali-langengine-community/ali-langengine-vertexai</module>
 		<module>ali-langengine-community/ali-langengine-moonshot</module>
@@ -105,8 +104,6 @@
 		<module>ali-langengine-community/ali-langengine-jsonrepair</module>
 
 		<module>ali-agentic-adk-core</module>
-
-		<module>ali-langengine-demo</module>
 
 <!--		<module>ali-langengine-community/ali-langengine-opensearch</module>-->
 <!--		<module>ali-langengine-community/ali-langengine-tair</module>-->
