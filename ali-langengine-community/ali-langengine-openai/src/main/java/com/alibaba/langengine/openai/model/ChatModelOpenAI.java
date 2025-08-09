@@ -62,7 +62,7 @@ public class ChatModelOpenAI extends BaseChatModel<ChatCompletionRequest> {
     }
 
     public ChatModelOpenAI(String apiKey, Long timeout) {
-        setModel(OpenAIModelConstants.gpt_4_1);
+        setModel(OpenAIModelConstants.GPT_35_TURBO);
         setTemperature(0.7d);
         setMaxTokens(256);
         setTemperature(1.0d);
