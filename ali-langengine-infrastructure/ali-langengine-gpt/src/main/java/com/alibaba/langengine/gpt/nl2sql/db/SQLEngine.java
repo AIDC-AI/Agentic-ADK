@@ -21,7 +21,7 @@ import com.alibaba.langengine.gpt.nl2sql.db.meta.DatasourceConfig;
 import com.alibaba.langengine.gpt.nl2sql.db.meta.ForeignKey;
 import com.alibaba.langengine.gpt.nl2sql.db.meta.PrimaryKey;
 import com.alibaba.langengine.gpt.nl2sql.db.meta.Table;
-import com.taobao.tddl.jdbc.group.TGroupDataSource;
+
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +50,6 @@ public class SQLEngine {
 
     private DruidDataSource druidDataSource;
 
-    private TGroupDataSource tGroupDataSource;
 
     public static SQLEngine createEngine(String databaseUri, String dialect) {
         SQLEngine engine = new SQLEngine();
@@ -79,10 +78,7 @@ public class SQLEngine {
                 //通过反射加载驱动
                 Class.forName("org.sqlite.JDBC");
                 return DriverManager.getConnection(databaseUri);
-            } else if("tddlgroup".equals(dialect)) {
-                initTGroupDataSource();
-                return tGroupDataSource.getConnection();
-            } else if (StringUtils.startsWith(databaseUri, "jdbc:postgresql")) {
+            }else if (StringUtils.startsWith(databaseUri, "jdbc:postgresql")) {
                 Class.forName("org.postgresql.Driver");
                 return DriverManager.getConnection(databaseUri);
             }
@@ -92,19 +88,6 @@ public class SQLEngine {
         return null;
     }
 
-    private void initTGroupDataSource() {
-        if (tGroupDataSource == null) {
-            synchronized (this) {
-                if (tGroupDataSource == null) {
-                    String[] aksk = databaseUri.split("\\|");
-                    tGroupDataSource = new TGroupDataSource();
-                    tGroupDataSource.setAppName(aksk[0]);
-                    tGroupDataSource.setDbGroupKey(aksk[1]);
-                    tGroupDataSource.init();
-                }
-            }
-        }
-    }
 
     private Connection getConnectionFromPool() throws SQLException {
         if (druidDataSource == null) {

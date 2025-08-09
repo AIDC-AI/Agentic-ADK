@@ -58,3 +58,6 @@ license-header.txt
 # 只忽略当前目录下的dbg文件和目录，子目录的dbg不在忽略范围内
 #/dbg
 /tree.txt
+
+*.flattened-pom.xml
+/xx.txt
