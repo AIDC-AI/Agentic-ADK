@@ -51,8 +51,11 @@ public class SerpapiService extends RetrofitInitService<SerpapiApi> {
     }
 
     public OkHttpClient defaultClient(Duration timeout, Proxy proxy) {
+        // 创建一个OkHttpClient.Builder对象
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                // 设置连接池，最大连接数为100，每个连接的空闲时间为1秒
                 .connectionPool(new ConnectionPool(100, 1, TimeUnit.SECONDS))
+                // 设置读取超时时间为timeout的毫秒数
                 .readTimeout(timeout.toMillis(), TimeUnit.MILLISECONDS);
         // contribute by dapeng.fdp
         if(proxy != null) {

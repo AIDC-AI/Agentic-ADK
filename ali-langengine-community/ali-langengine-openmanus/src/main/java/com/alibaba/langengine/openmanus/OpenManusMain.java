@@ -35,7 +35,7 @@ public class OpenManusMain {
             throw new IllegalStateException("Chromedriver not found in resources");
         }
         String chromedriverPath = Paths.get(resource.getPath()).toFile().getAbsolutePath();
-        System.setProperty("webdriver.chrome.driver", chromedriverPath);
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 
         ManusAgent manusAgent = new ManusAgent();
 

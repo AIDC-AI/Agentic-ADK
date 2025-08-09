@@ -75,12 +75,12 @@
         <!-- tddl end -->
 
         <!-- eagleeye start -->
-        <dependency>
-            <groupId> com.taobao.eagleeye</groupId>
-            <artifactId>eagleeye-core</artifactId>
-            <version>1.9.5</version>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId> com.taobao.eagleeye</groupId>-->
+<!--            <artifactId>eagleeye-core</artifactId>-->
+<!--            <version>1.9.5</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <!-- eagleeye end -->
 
         <!-- opensearch start -->
@@ -94,7 +94,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.15.4</version>
         </dependency>
     </dependencies>
 

@@ -31,11 +31,11 @@ public class OpenManusConfiguration {
     public static BaseChatModel planningChatModel;
 
     static {
-        manusChatModel = new DashScopeOpenAIChatModel();
-        manusChatModel.setModel(DashScopeModelName.QWEN25_MAX);
+//        manusChatModel = new DashScopeOpenAIChatModel();
+//        manusChatModel.setModel(DashScopeModelName.QWEN25_MAX);
 
-//        manusChatModel = new ChatModelOpenAI();
-//        manusChatModel.setModel(OpenAIModelConstants.GPT_4_TURBO);
+        manusChatModel = new ChatModelOpenAI();
+        manusChatModel.setModel(OpenAIModelConstants.gpt_4_1);
 
 //        manusChatModel = new ApiGatewayChatModel(
 //                APPBUILDER_APIID,
@@ -47,11 +47,11 @@ public class OpenManusConfiguration {
         manusChatModel.setTemperature(0d);
         manusChatModel.setToolChoice("required");
 
-        planningChatModel = new DashScopeOpenAIChatModel();
-        planningChatModel.setModel(DashScopeModelName.QWEN25_MAX);
+//        planningChatModel = new DashScopeOpenAIChatModel();
+//        planningChatModel.setModel(DashScopeModelName.QWEN25_MAX);
 
-//        planningChatModel = new ChatModelOpenAI();
-//        planningChatModel.setModel(OpenAIModelConstants.GPT_4_TURBO);
+        planningChatModel = new ChatModelOpenAI();
+        planningChatModel.setModel(OpenAIModelConstants.gpt_4_1);
 //
 //        planningChatModel = new ApiGatewayChatModel(
 //                APPBUILDER_APIID,

@@ -102,6 +102,8 @@ public class OpenAIModelConstants {
      */
     public static final String GPT_35_TURBO_16K = "gpt-3.5-turbo-16k";
 
+    public static final String gpt_4_1="gpt-4.1";
+
     /**
      * Similar capabilities as text-davinci-003 but compatible
      * with legacy Completions endpoint and not Chat Completions.
