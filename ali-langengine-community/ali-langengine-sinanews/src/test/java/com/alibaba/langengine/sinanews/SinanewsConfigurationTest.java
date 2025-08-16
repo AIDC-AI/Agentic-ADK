@@ -13,9 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.sinanews;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for SinanewsConfiguration
+ */
+public class SinanewsConfigurationTest {
+
+    @Test
+    public void testSinanewsApiUrlNotNull() {
+        // Verify
+        assertNotNull(SinanewsConfiguration.SINANEWS_API_URL);
+        assertFalse(SinanewsConfiguration.SINANEWS_API_URL.isEmpty());
+    }
 }

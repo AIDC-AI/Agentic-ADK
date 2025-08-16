@@ -13,9 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.weather;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+import com.alibaba.langengine.core.util.WorkPropertiesUtils;
+import static com.alibaba.langengine.weather.sdk.WeatherConstant.BASE_URL;
+
+public class WeatherConfiguration {
+    public static String WEATHER_API_KEY = WorkPropertiesUtils.get("weather_api_key");
+
+    /**
+     * Weather API base URL, defaults to the constant BASE_URL if not configured
+     */
+    public static String WEATHER_API_URL = WorkPropertiesUtils.get("weather_api_url", BASE_URL);
 }

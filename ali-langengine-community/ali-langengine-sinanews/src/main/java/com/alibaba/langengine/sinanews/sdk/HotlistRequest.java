@@ -13,9 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.sinanews.sdk;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+/**
+ * Hotlist Request
+ * Represents a request to the Sinanews hotlist API
+ */
+public class HotlistRequest {
+    private String newsId;
+
+    public HotlistRequest() {
+    }
+
+    public HotlistRequest(String newsId) {
+        this.newsId = newsId;
+    }
+
+    // Getters and Setters
+
+    public String getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(String newsId) {
+        this.newsId = newsId;
+    }
 }

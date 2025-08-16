@@ -13,9 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.sinanews.sdk;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+/**
+ * Sinanews Exception
+ * Custom exception class for Sinanews related errors
+ */
+public class SinanewsException extends RuntimeException {
+
+    public SinanewsException(String message) {
+        super(message);
+    }
+
+    public SinanewsException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

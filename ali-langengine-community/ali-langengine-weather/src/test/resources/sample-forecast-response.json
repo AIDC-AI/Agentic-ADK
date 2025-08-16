@@ -1,0 +1,123 @@
+{
+  "location": {
+    "name": "Sample City",
+    "region": "Sample Region",
+    "country": "Sample Country",
+    "lat": 40.7128,
+    "lon": -74.0060,
+    "tz_id": "UTC",
+    "localtime_epoch": 1672531200,
+    "localtime": "2023-01-01 00:00"
+  },
+  "current": {
+    "last_updated_epoch": 1672531200,
+    "last_updated": "2023-01-01 00:00",
+    "temp_c": 20.0,
+    "temp_f": 68.0,
+    "is_day": 1,
+    "condition": {
+      "text": "Sunny",
+      "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png",
+      "code": 1000
+    },
+    "wind_mph": 5.0,
+    "wind_kph": 8.0,
+    "wind_degree": 180,
+    "wind_dir": "S",
+    "pressure_mb": 1013.0,
+    "pressure_in": 29.92,
+    "precip_mm": 0.0,
+    "precip_in": 0.0,
+    "humidity": 50,
+    "cloud": 0,
+    "feelslike_c": 20.0,
+    "feelslike_f": 68.0,
+    "vis_km": 10.0,
+    "vis_miles": 6.0,
+    "uv": 5.0,
+    "gust_mph": 7.0,
+    "gust_kph": 11.2
+  },
+  "forecast": {
+    "forecastday": [
+      {
+        "date": "2023-01-01",
+        "date_epoch": 1672531200,
+        "day": {
+          "maxtemp_c": 22.0,
+          "maxtemp_f": 71.6,
+          "mintemp_c": 15.0,
+          "mintemp_f": 59.0,
+          "avgtemp_c": 18.5,
+          "avgtemp_f": 65.3,
+          "maxwind_mph": 6.0,
+          "maxwind_kph": 9.7,
+          "totalprecip_mm": 0.0,
+          "totalprecip_in": 0.0,
+          "avgvis_km": 10.0,
+          "avgvis_miles": 6.0,
+          "avghumidity": 55,
+          "daily_will_it_rain": 0,
+          "daily_chance_of_rain": 0,
+          "daily_will_it_snow": 0,
+          "daily_chance_of_snow": 0,
+          "condition": {
+            "text": "Sunny",
+            "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png",
+            "code": 1000
+          },
+          "uv": 5.0
+        },
+        "astro": {
+          "sunrise": "07:00 AM",
+          "sunset": "05:00 PM",
+          "moonrise": "08:00 PM",
+          "moonset": "09:00 AM",
+          "moon_phase": "Waxing Gibbous",
+          "moon_illumination": "76"
+        },
+        "hour": [
+          {
+            "time_epoch": 1672531200,
+            "time": "2023-01-01 00:00",
+            "temp_c": 18.0,
+            "temp_f": 64.4,
+            "is_day": 0,
+            "condition": {
+              "text": "Clear",
+              "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
+              "code": 1000
+            },
+            "wind_mph": 3.0,
+            "wind_kph": 4.8,
+            "wind_degree": 180,
+            "wind_dir": "S",
+            "pressure_mb": 1013.0,
+            "pressure_in": 29.92,
+            "precip_mm": 0.0,
+            "precip_in": 0.0,
+            "humidity": 60,
+            "cloud": 0,
+            "feelslike_c": 18.0,
+            "feelslike_f": 64.4,
+            "windchill_c": 18.0,
+            "windchill_f": 64.4,
+            "heatindex_c": 18.0,
+            "heatindex_f": 64.4,
+            "dewpoint_c": 10.0,
+            "dewpoint_f": 50.0,
+            "will_it_rain": 0,
+            "chance_of_rain": 0,
+            "will_it_snow": 0,
+            "chance_of_snow": 0,
+            "vis_km": 10.0,
+            "vis_miles": 6.0,
+            "gust_mph": 4.0,
+            "gust_kph": 6.4,
+            "uv": 1.0
+          }
+        ]
+      }
+    ]
+  }
+}

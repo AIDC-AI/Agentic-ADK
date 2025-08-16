@@ -99,6 +99,8 @@
 
 		<module>ali-agentic-adk-core</module>
 		<module>ali-langengine-community/ali-langengine-aliyunaisearch</module>
+		<module>ali-langengine-community/ali-langengine-sinanews</module>
+		<module>ali-langengine-community/ali-langengine-weather</module>
 
 
 		<!--		<module>ali-langengine-community/ali-langengine-opensearch</module>-->

@@ -13,9 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.weather.sdk;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+public interface WeatherConstant {
+    /**
+     * The base URL for the Weather API.
+     */
+    String BASE_URL = "https://api.weatherapi.com/v1/";
+
+    /**
+     * The endpoint for the forecast API.
+     */
+    String FORECAST_ENDPOINT = "forecast.json";
+
+    /**
+     * The default timeout in seconds for API requests.
+     */
+    int DEFAULT_TIMEOUT = 30;
 }

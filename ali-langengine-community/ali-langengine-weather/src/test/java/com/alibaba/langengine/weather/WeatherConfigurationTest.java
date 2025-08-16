@@ -13,9 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.weather;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class WeatherConfigurationTest {
+
+    @Test
+    void testWeatherApiUrlNotNull() {
+        // Verify
+        assertNotNull(WeatherConfiguration.WEATHER_API_URL);
+        assertFalse(WeatherConfiguration.WEATHER_API_URL.isEmpty());
+    }
 }

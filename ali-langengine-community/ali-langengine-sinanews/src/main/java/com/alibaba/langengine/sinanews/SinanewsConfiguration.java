@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.sinanews;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+import com.alibaba.langengine.core.util.WorkPropertiesUtils;
+import static com.alibaba.langengine.sinanews.sdk.SinanewsConstant.BASE_URL;
+
+public class SinanewsConfiguration {
+    /**
+     * Sinanews API base URL, defaults to the constant BASE_URL if not configured
+     */
+    public static String SINANEWS_API_URL = WorkPropertiesUtils.get("sinanews_api_url", BASE_URL);
 }

@@ -13,9 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alibaba.langengine.aliyunaisearch.sdk;
+package com.alibaba.langengine.sinanews.sdk;
 
-public class AliyunAiSearchConstant {
-    public static final String DEFAULT_ENDPOINT = "search.cn-hangzhou.aliyuncs.com";
-    public static final String DEFAULT_PATH = "/v1/api/websearch";
+import java.util.List;
+
+/**
+ * Hotlist Data
+ * Represents the data field in the hotlist response
+ */
+public class HotlistData {
+    private List<HotlistItem> data;
+
+    public HotlistData() {
+    }
+
+    public HotlistData(List<HotlistItem> data) {
+        this.data = data;
+    }
+
+    // Getters and Setters
+
+    public List<HotlistItem> getData() {
+        return data;
+    }
+
+    public void setData(List<HotlistItem> data) {
+        this.data = data;
+    }
 }
