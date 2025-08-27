@@ -15,12 +15,36 @@
  */
 package com.alibaba.langengine.openmanus.tool.support;
 
-import lombok.Data;
 
-@Data
 public class ExecuteCommandResult {
 
     private String output;
-
     private Integer exitCode;
+
+    // 默认构造函数
+    public ExecuteCommandResult() {
+    }
+
+    // 全参构造函数
+    public ExecuteCommandResult(String output, Integer exitCode) {
+        this.output = output;
+        this.exitCode = exitCode;
+    }
+
+    // Getter和Setter方法
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        this.output = output;
+    }
+
+    public Integer getExitCode() {
+        return exitCode;
+    }
+
+    public void setExitCode(Integer exitCode) {
+        this.exitCode = exitCode;
+    }
 }

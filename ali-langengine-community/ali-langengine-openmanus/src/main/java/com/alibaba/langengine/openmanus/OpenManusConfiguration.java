@@ -24,51 +24,70 @@ import com.alibaba.langengine.openai.model.OpenAIModelConstants;
 
 public class OpenManusConfiguration {
 
-    public static String APPBUILDER_APIID = WorkPropertiesUtils.getFirstAvailable("aidc_appbuilder_appid");
-    public static String APPBUILDER_AK = WorkPropertiesUtils.getFirstAvailable("aidc_appbuilder_ak");
-
+    public static String APPBUILDER_APIID;
+    public static String APPBUILDER_AK;
+    
     public static BaseChatModel manusChatModel;
     public static BaseChatModel planningChatModel;
 
     static {
-        manusChatModel = new DashScopeOpenAIChatModel();
-        manusChatModel.setModel(DashScopeModelName.QWEN25_MAX);
-
-//        manusChatModel = new ChatModelOpenAI();
-//        manusChatModel.setModel(OpenAIModelConstants.GPT_4_TURBO);
-
-//        manusChatModel = new ApiGatewayChatModel(
-//                APPBUILDER_APIID,
-//                null,
-//                ApiGatewayModelType.OPENAI,
-//                "production",
-//                APPBUILDER_AK);
-
-        manusChatModel.setTemperature(0d);
-        manusChatModel.setToolChoice("required");
-
-        planningChatModel = new DashScopeOpenAIChatModel();
-        planningChatModel.setModel(DashScopeModelName.QWEN25_MAX);
-
-//        planningChatModel = new ChatModelOpenAI();
-//        planningChatModel.setModel(OpenAIModelConstants.GPT_4_TURBO);
-//
-//        planningChatModel = new ApiGatewayChatModel(
-//                APPBUILDER_APIID,
-//                null,
-//                ApiGatewayModelType.OPENAI,
-//                "production",
-//                APPBUILDER_AK);
-
-        planningChatModel.setTemperature(0d);
-        planningChatModel.setToolChoice("required");
+        try {
+            APPBUILDER_APIID = WorkPropertiesUtils.getFirstAvailable("aidc_appbuilder_appid");
+        } catch (Exception e) {
+            APPBUILDER_APIID = null;
+        }
+        try {
+            APPBUILDER_AK = WorkPropertiesUtils.getFirstAvailable("aidc_appbuilder_ak");
+        } catch (Exception e) {
+            APPBUILDER_AK = null;
+        }
+        
+        try {
+            manusChatModel = new DashScopeOpenAIChatModel();
+            manusChatModel.setModel(DashScopeModelName.QWEN25_MAX);
+            manusChatModel.setTemperature(0d);
+            manusChatModel.setToolChoice("required");
+        } catch (Exception e) {
+            System.err.println("Failed to initialize manusChatModel: " + e.getMessage());
+            manusChatModel = null;
+        }
+        
+        try {
+            planningChatModel = new DashScopeOpenAIChatModel();
+            planningChatModel.setModel(DashScopeModelName.QWEN25_MAX);
+            planningChatModel.setTemperature(0d);
+            planningChatModel.setToolChoice("required");
+        } catch (Exception e) {
+            System.err.println("Failed to initialize planningChatModel: " + e.getMessage());
+            planningChatModel = null;
+        }
     }
 
     public static BaseChatModel getManusChatModel() {
+        if (manusChatModel == null) {
+            try {
+                manusChatModel = new DashScopeOpenAIChatModel();
+                manusChatModel.setModel(DashScopeModelName.QWEN25_MAX);
+                manusChatModel.setTemperature(0d);
+                manusChatModel.setToolChoice("required");
+            } catch (Exception e) {
+                System.err.println("Warning: Could not create manusChatModel: " + e.getMessage());
+            }
+        }
         return manusChatModel;
     }
 
     public static BaseChatModel getPlanningChatModel() {
+        if (planningChatModel == null) {
+            try {
+                planningChatModel = new DashScopeOpenAIChatModel();
+                planningChatModel.setModel(DashScopeModelName.QWEN25_MAX);
+                planningChatModel.setTemperature(0d);
+                planningChatModel.setToolChoice("required");
+            } catch (Exception e) {
+                System.err.println("Warning: Could not create planningChatModel: " + e.getMessage());
+            }
+        }
         return planningChatModel;
     }
 }

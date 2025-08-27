@@ -46,8 +46,12 @@ public class OpenManusTest {
         if (resource == null) {
             throw new IllegalStateException("Chromedriver not found in resources");
         }
-        String chromedriverPath = Paths.get(resource.getPath()).toFile().getAbsolutePath();
-        System.setProperty("webdriver.chrome.driver", chromedriverPath);
+        try {
+            String chromedriverPath = Paths.get(resource.toURI()).toFile().getAbsolutePath();
+            System.setProperty("webdriver.chrome.driver", chromedriverPath);
+        } catch (Exception e) {
+            System.out.println("Warning: Could not set chromedriver path: " + e.getMessage());
+        }
     }
 
     @Test
