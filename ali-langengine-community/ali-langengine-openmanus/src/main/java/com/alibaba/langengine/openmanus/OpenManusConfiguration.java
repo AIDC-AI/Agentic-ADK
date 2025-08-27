@@ -27,8 +27,9 @@ public class OpenManusConfiguration {
     public static String APPBUILDER_APIID;
     public static String APPBUILDER_AK;
     
-    public static BaseChatModel manusChatModel;
-    public static BaseChatModel planningChatModel;
+    private static volatile BaseChatModel manusChatModel;
+    private static volatile BaseChatModel planningChatModel;
+    private static final Object lock = new Object();
 
     static {
         try {
@@ -41,37 +42,27 @@ public class OpenManusConfiguration {
         } catch (Exception e) {
             APPBUILDER_AK = null;
         }
-        
+    }
+
+    private static BaseChatModel createChatModel() {
         try {
-            manusChatModel = new DashScopeOpenAIChatModel();
-            manusChatModel.setModel(DashScopeModelName.QWEN25_MAX);
-            manusChatModel.setTemperature(0d);
-            manusChatModel.setToolChoice("required");
+            BaseChatModel model = new DashScopeOpenAIChatModel();
+            model.setModel(DashScopeModelName.QWEN25_MAX);
+            model.setTemperature(0d);
+            model.setToolChoice("required");
+            return model;
         } catch (Exception e) {
-            System.err.println("Failed to initialize manusChatModel: " + e.getMessage());
-            manusChatModel = null;
-        }
-        
-        try {
-            planningChatModel = new DashScopeOpenAIChatModel();
-            planningChatModel.setModel(DashScopeModelName.QWEN25_MAX);
-            planningChatModel.setTemperature(0d);
-            planningChatModel.setToolChoice("required");
-        } catch (Exception e) {
-            System.err.println("Failed to initialize planningChatModel: " + e.getMessage());
-            planningChatModel = null;
+            System.err.println("Failed to create chat model: " + e.getMessage());
+            return null;
         }
     }
 
     public static BaseChatModel getManusChatModel() {
         if (manusChatModel == null) {
-            try {
-                manusChatModel = new DashScopeOpenAIChatModel();
-                manusChatModel.setModel(DashScopeModelName.QWEN25_MAX);
-                manusChatModel.setTemperature(0d);
-                manusChatModel.setToolChoice("required");
-            } catch (Exception e) {
-                System.err.println("Warning: Could not create manusChatModel: " + e.getMessage());
+            synchronized (lock) {
+                if (manusChatModel == null) {
+                    manusChatModel = createChatModel();
+                }
             }
         }
         return manusChatModel;
@@ -79,13 +70,10 @@ public class OpenManusConfiguration {
 
     public static BaseChatModel getPlanningChatModel() {
         if (planningChatModel == null) {
-            try {
-                planningChatModel = new DashScopeOpenAIChatModel();
-                planningChatModel.setModel(DashScopeModelName.QWEN25_MAX);
-                planningChatModel.setTemperature(0d);
-                planningChatModel.setToolChoice("required");
-            } catch (Exception e) {
-                System.err.println("Warning: Could not create planningChatModel: " + e.getMessage());
+            synchronized (lock) {
+                if (planningChatModel == null) {
+                    planningChatModel = createChatModel();
+                }
             }
         }
         return planningChatModel;

@@ -221,21 +221,38 @@ public class PythonExecute extends BaseTool {
     
     /**
      * 简单的JSON解析（仅支持基本的键值对）
+     * 注意：这是一个简化实现，生产环境建议使用Jackson或Gson
      */
     private Map<String, Object> parseSimpleJson(String json) {
         Map<String, Object> result = new HashMap<>();
         
+        // 输入验证
+        if (json == null || json.trim().length() < 2) {
+            throw new IllegalArgumentException("Invalid JSON input");
+        }
+        
+        json = json.trim();
+        if (!json.startsWith("{") || !json.endsWith("}")) {
+            throw new IllegalArgumentException("JSON must start with { and end with }");
+        }
+        
         // 移除首尾的大括号
-        json = json.trim().substring(1, json.length() - 1);
+        json = json.substring(1, json.length() - 1).trim();
+        
+        if (json.isEmpty()) {
+            return result;
+        }
         
         // 简单的分割和解析
         String[] pairs = json.split(",");
         for (String pair : pairs) {
             String[] keyValue = pair.split(":", 2);
             if (keyValue.length == 2) {
-                String key = keyValue[0].trim().replaceAll("\"", "");
-                String value = keyValue[1].trim().replaceAll("\"", "");
-                result.put(key, value);
+                String key = keyValue[0].trim().replaceAll("[\"']", "");
+                String value = keyValue[1].trim().replaceAll("[\"']", "");
+                if (!key.isEmpty()) {
+                    result.put(key, value);
+                }
             }
         }
         
@@ -319,9 +336,11 @@ public class PythonExecute extends BaseTool {
         } finally {
             // 清理临时文件
             try {
-                Files.deleteIfExists(filePath);
+                if (Files.exists(filePath)) {
+                    Files.delete(filePath);
+                }
             } catch (IOException e) {
-                // 忽略清理错误
+                System.err.println("Warning: Failed to clean up temp file: " + filePath + ", error: " + e.getMessage());
             }
         }
     }
