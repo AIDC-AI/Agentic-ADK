@@ -23,7 +23,6 @@ import com.alibaba.dashscope.app.ApplicationResult;
 import com.alibaba.dashscope.exception.ApiException;
 import com.alibaba.dashscope.exception.InputRequiredException;
 import com.alibaba.dashscope.exception.NoApiKeyException;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.genai.types.FunctionDeclaration;
 import com.google.genai.types.Schema;
@@ -36,6 +35,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.alibaba.agentic.core.schema.StandardKeys;
 
 @Component
 @Data
@@ -62,8 +62,8 @@ public class DashScopeTools implements FunctionTool {
                 Application application = new Application();
                 ApplicationResult result = application.call(applicationParam);
                 Map<String, Object> output = new HashMap<>();
-                output.put("text", result.getOutput().getText());
-                output.put("sessionId", result.getOutput().getSessionId());
+                output.put(StandardKeys.TEXT, result.getOutput().getText());
+                output.put(StandardKeys.SESSION_ID, result.getOutput().getSessionId());
                 emitter.onNext(output);
                 emitter.onComplete();
             } catch (ApiException | NoApiKeyException | InputRequiredException e) {
@@ -109,12 +109,12 @@ public class DashScopeTools implements FunctionTool {
                         Schema.builder()
                                 .type("OBJECT")
                                 .properties(Map.of(
-                                        "text", Schema.builder()
+                                        StandardKeys.TEXT, Schema.builder()
                                                 .type("STRING").description("回复内容").build(),
-                                        "sessionId", Schema.builder()
+                                        StandardKeys.SESSION_ID, Schema.builder()
                                                 .type("STRING").description("本轮返回的会话ID").build()
                                 ))
-                                .required(java.util.List.of("text", "sessionId"))
+                                .required(java.util.List.of(StandardKeys.TEXT, StandardKeys.SESSION_ID))
                                 .build()
                 )
                 .build();

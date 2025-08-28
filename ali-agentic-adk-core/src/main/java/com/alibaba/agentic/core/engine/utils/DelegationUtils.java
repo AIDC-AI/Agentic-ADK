@@ -41,7 +41,9 @@ public class DelegationUtils {
         if (MapUtils.isEmpty(result.getData())) {
             return;
         }
-        systemContext.getInterOutput().put(getInterOutputKey(activityId), result.getData());
+        // 存储中间结果时做浅拷贝，避免后续链路修改原 map
+        systemContext.getInterOutput().put(getInterOutputKey(activityId),
+                result.getData() == null ? null : new java.util.HashMap<>(result.getData()));
     }
 
     public static <T> T getResultOfNode(SystemContext systemContext, String activityId, Class<T> clazz) {

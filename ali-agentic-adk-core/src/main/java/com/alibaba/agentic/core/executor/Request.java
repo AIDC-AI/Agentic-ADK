@@ -48,4 +48,10 @@ public class Request {
      * 业务入参，键值结构。
      */
     private Map<String, Object> param;
+
+    public Request setParam(Map<String, Object> param) {
+        // 防御性复制，隔离调用者后续修改
+        this.param = (param == null) ? null : new java.util.HashMap<>(param);
+        return this;
+    }
 }

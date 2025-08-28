@@ -51,8 +51,12 @@ public abstract class FrameworkDelegationBase implements JavaDelegation, Executo
 
     @Override
     public void execute(ExecutionContext executionContext) {
-        log.debug("smart engine execute: {}", executionContext.getRequest());
-        Map<String, Object> request = executionContext.getRequest();
+        // 使用不可变快照减少外部修改带来的副作用
+        com.alibaba.agentic.core.executor.ImmutableExecutionContext snapshot =
+                new com.alibaba.agentic.core.executor.ImmutableExecutionContext(executionContext);
+        log.debug("smart engine execute: {}", snapshot.getRequest());
+        // 读取用不可变视图，写入仍通过原生 response map（引擎期望）
+        Map<String, Object> request = new java.util.HashMap<>(snapshot.getRequest());
         Map<String, Object> response = executionContext.getResponse();
         SystemContext systemContext = (SystemContext) request.get(ExecutionConstant.SYSTEM_CONTEXT);
         systemContext.setExecutor(this);
@@ -122,8 +126,10 @@ public abstract class FrameworkDelegationBase implements JavaDelegation, Executo
         if (MapUtils.isEmpty(smartEngineResultMap)) {
             return Map.of();
         }
-        smartEngineResultMap.put(CURRENT_ACTIVITY_ID, activityId);
-        return smartEngineResultMap;
+        // 防御性复制，避免改写引擎侧属性集合
+        Map<String, Object> copy = new java.util.HashMap<>(smartEngineResultMap);
+        copy.put(CURRENT_ACTIVITY_ID, activityId);
+        return copy;
     }
 
 }
