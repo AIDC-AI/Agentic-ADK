@@ -87,6 +87,7 @@
 		<module>ali-langengine-community/ali-langengine-milvus</module>
 		<module>ali-langengine-community/ali-langengine-marqo</module>
 		<module>ali-langengine-community/ali-langengine-chroma</module>
+		<module>ali-langengine-community/ali-langengine-scann</module>
 		<module>ali-langengine-community/ali-langengine-clickhouse</module>
         <module>ali-langengine-community/ali-langengine-firecrawl</module>
 		<module>ali-langengine-community/ali-langengine-djl</module>
