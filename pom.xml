@@ -127,6 +127,7 @@
 		<module>ali-langengine-community/ali-langengine-tusharestock</module>
 		<module>ali-langengine-community/ali-langengine-metaso</module>
 		<module>ali-langengine-community/ali-langengine-neo4j</module>
+		<module>ali-langengine-community/ali-langengine-annoy</module>
 		<module>ali-langengine-community/ali-langengine-googlesearch</module>
 	</modules>
 	<dependencyManagement>
