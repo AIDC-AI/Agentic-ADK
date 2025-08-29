@@ -17,7 +17,9 @@
 package com.alibaba.langengine.baidumap;
 
 import com.alibaba.langengine.baidumap.sdk.BaiduMapClient;
-import com.alibaba.langengine.baidumap.sdk.PlaceSearchResponse;
+import com.alibaba.langengine.baidumap.sdk.request.WeatherRequest;
+import com.alibaba.langengine.baidumap.sdk.response.PlaceSearchResponse;
+import com.alibaba.langengine.baidumap.sdk.response.WeatherResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -32,4 +34,15 @@ public class BaiduMapClientTest {
         PlaceSearchResponse response = baiduMapClient.placeSearch("中街", "沈阳市沈河区");
         assert response != null;
     }
+
+    @Test
+    public void testWeather() {
+        BaiduMapClient baiduMapClient = new BaiduMapClient(API_KEY);
+        WeatherRequest request = new WeatherRequest();
+        request.setDistrictId("222405");
+        request.setDataType("all");
+        WeatherResponse response = baiduMapClient.getWeather(request);
+        assert response != null && response.getStatus() == 0;
+    }
+
 }

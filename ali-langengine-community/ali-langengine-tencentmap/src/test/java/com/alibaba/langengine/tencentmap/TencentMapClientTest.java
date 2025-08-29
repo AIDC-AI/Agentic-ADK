@@ -16,8 +16,10 @@
 
 package com.alibaba.langengine.tencentmap;
 
-import com.alibaba.langengine.tencentmap.sdk.PlaceSearchResponse;
+import com.alibaba.langengine.tencentmap.sdk.request.WeatherRequest;
+import com.alibaba.langengine.tencentmap.sdk.response.PlaceSearchResponse;
 import com.alibaba.langengine.tencentmap.sdk.TencentMapClient;
+import com.alibaba.langengine.tencentmap.sdk.response.WeatherResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -31,6 +33,26 @@ public class TencentMapClientTest {
         TencentMapClient tencentMapClient = new TencentMapClient(API_KEY);
         PlaceSearchResponse response = tencentMapClient.placeSearch("中街", "沈阳");
         assert response != null;
+    }
+
+    @Test
+    public void testWeatherNow() {
+        TencentMapClient tencentMapClient = new TencentMapClient(API_KEY);
+        WeatherRequest request = new WeatherRequest();
+        request.setAdcode("130681");
+        request.setType("now");
+        WeatherResponse response = tencentMapClient.getWeather(request);
+        assert response != null && response.getStatus() == 0;
+    }
+
+    @Test
+    public void testWeatherFuture() {
+        TencentMapClient tencentMapClient = new TencentMapClient(API_KEY);
+        WeatherRequest request = new WeatherRequest();
+        request.setAdcode("130681");
+        request.setType("future");
+        WeatherResponse response = tencentMapClient.getWeather(request);
+        assert response != null && response.getStatus() == 0;
     }
 
 }

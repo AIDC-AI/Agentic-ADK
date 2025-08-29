@@ -26,6 +26,8 @@ public final class TencentMapConstant {
 
     public static final String PLACE_SEARCH_API_ENDPOINT = "/place/v1/search";
 
+    public static final String WEATHER_API_ENDPOINT = "/weather/v1";
+
     /**
      * The default timeout in seconds for API requests.
      */

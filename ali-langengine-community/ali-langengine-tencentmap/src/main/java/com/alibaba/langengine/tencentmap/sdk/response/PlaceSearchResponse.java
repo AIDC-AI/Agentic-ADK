@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.langengine.tencentmap.sdk;
+package com.alibaba.langengine.tencentmap.sdk.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

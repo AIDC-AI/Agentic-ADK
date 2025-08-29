@@ -16,6 +16,10 @@
 
 package com.alibaba.langengine.tencentmap.sdk;
 
+import com.alibaba.langengine.tencentmap.sdk.request.PlaceSearchRequest;
+import com.alibaba.langengine.tencentmap.sdk.request.WeatherRequest;
+import com.alibaba.langengine.tencentmap.sdk.response.PlaceSearchResponse;
+import com.alibaba.langengine.tencentmap.sdk.response.WeatherResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +29,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -36,6 +41,7 @@ import static com.alibaba.langengine.tencentmap.TencentMapConfiguration.TENCENT_
 import static com.alibaba.langengine.tencentmap.TencentMapConfiguration.TENCENT_MAP_API_URL;
 import static com.alibaba.langengine.tencentmap.sdk.TencentMapConstant.DEFAULT_TIMEOUT;
 import static com.alibaba.langengine.tencentmap.sdk.TencentMapConstant.PLACE_SEARCH_API_ENDPOINT;
+import static com.alibaba.langengine.tencentmap.sdk.TencentMapConstant.WEATHER_API_ENDPOINT;
 
 public class TencentMapClient {
 
@@ -144,6 +150,62 @@ public class TencentMapClient {
         placeSearchRequest.setKeyword(keyword);
         placeSearchRequest.setBoundary(String.format("region(%s)", cityName));
         return this.placeSearch(placeSearchRequest);
+    }
+
+    /**
+     * Get weather information based on request parameters
+     *
+     * @param request Weather request parameters
+     * @return Weather response
+     * @throws TencentMapException when API call fails
+     */
+    public WeatherResponse getWeather(WeatherRequest request) throws TencentMapException {
+        try {
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(TENCENT_MAP_API_URL + WEATHER_API_ENDPOINT).newBuilder();
+
+            // Add non-null parameters to query
+            urlBuilder.addQueryParameter("key", apiKey);
+            if (request.getAdcode() != null) {
+                urlBuilder.addQueryParameter("adcode", request.getAdcode());
+            }
+            if (request.getLocation() != null) {
+                urlBuilder.addQueryParameter("location", request.getLocation());
+            }
+            if (request.getType() != null) {
+                urlBuilder.addQueryParameter("type", request.getType());
+            }
+            if (request.getGetMd() != null) {
+                urlBuilder.addQueryParameter("get_md", request.getGetMd().toString());
+            }
+            if (request.getOutput() != null) {
+                urlBuilder.addQueryParameter("output", request.getOutput());
+            }
+            if (request.getCallback() != null) {
+                urlBuilder.addQueryParameter("callback", request.getCallback());
+            }
+
+            Request httpRequest = new Request.Builder()
+                    .url(urlBuilder.build())
+                    .get()
+                    .build();
+
+            try (Response response = httpClient.newCall(httpRequest).execute()) {
+                if (!response.isSuccessful()) {
+                    throw new TencentMapException("Tencent map API request failed with code: " + response.code());
+                }
+
+                if (response.body() == null) {
+                    throw new TencentMapException("Tencent map API response body is null");
+                }
+
+                String responseBody = response.body().string();
+                return objectMapper.readValue(responseBody, WeatherResponse.class);
+            }
+        } catch (IOException e) {
+            throw new TencentMapException("Error occurred while calling Tencent map weather API", e);
+        } catch (Exception e) {
+            throw new TencentMapException("Unexpected error occurred while calling Tencent map weather API", e);
+        }
     }
 
 }

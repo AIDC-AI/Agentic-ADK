@@ -16,6 +16,10 @@
 
 package com.alibaba.langengine.amap.sdk;
 
+import com.alibaba.langengine.amap.sdk.request.PlaceSearchRequest;
+import com.alibaba.langengine.amap.sdk.request.WeatherRequest;
+import com.alibaba.langengine.amap.sdk.response.PlaceSearchResponse;
+import com.alibaba.langengine.amap.sdk.response.WeatherResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +29,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -36,6 +41,7 @@ import static com.alibaba.langengine.amap.AMapConfiguration.AMAP_API_KEY;
 import static com.alibaba.langengine.amap.AMapConfiguration.AMAP_API_URL;
 import static com.alibaba.langengine.amap.sdk.AMapConstant.DEFAULT_TIMEOUT;
 import static com.alibaba.langengine.amap.sdk.AMapConstant.PLACE_SEARCH_API_ENDPOINT;
+import static com.alibaba.langengine.amap.sdk.AMapConstant.WEATHER_API_ENDPOINT;
 
 public class AMapClient {
 
@@ -144,6 +150,53 @@ public class AMapClient {
         placeSearchRequest.setKeywords(keywords);
         placeSearchRequest.setCity(city);
         return this.placeSearch(placeSearchRequest);
+    }
+
+    /**
+     * Get weather information based on request parameters
+     *
+     * @param request Weather request parameters
+     * @return Weather response
+     * @throws AMapException when API call fails
+     */
+    public WeatherResponse getWeather(WeatherRequest request) throws AMapException {
+        try {
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(AMAP_API_URL + WEATHER_API_ENDPOINT).newBuilder();
+
+            // Add parameters to query
+            urlBuilder.addQueryParameter("key", apiKey);
+            if (request.getCity() != null) {
+                urlBuilder.addQueryParameter("city", request.getCity());
+            }
+            if (request.getExtensions() != null) {
+                urlBuilder.addQueryParameter("extensions", request.getExtensions());
+            }
+            if (request.getOutput() != null) {
+                urlBuilder.addQueryParameter("output", request.getOutput());
+            }
+
+            Request httpRequest = new Request.Builder()
+                    .url(urlBuilder.build())
+                    .get()
+                    .build();
+
+            try (Response response = httpClient.newCall(httpRequest).execute()) {
+                if (!response.isSuccessful()) {
+                    throw new AMapException("Amap API request failed with code: " + response.code());
+                }
+
+                if (response.body() == null) {
+                    throw new AMapException("Amap API response body is null");
+                }
+
+                String responseBody = response.body().string();
+                return objectMapper.readValue(responseBody, WeatherResponse.class);
+            }
+        } catch (IOException e) {
+            throw new AMapException("Error occurred while calling Amap weather API", e);
+        } catch (Exception e) {
+            throw new AMapException("Unexpected error occurred while calling Amap weather API", e);
+        }
     }
 
 }

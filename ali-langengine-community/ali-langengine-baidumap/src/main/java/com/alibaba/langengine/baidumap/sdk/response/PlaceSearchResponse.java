@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.langengine.baidumap.sdk;
+package com.alibaba.langengine.baidumap.sdk.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

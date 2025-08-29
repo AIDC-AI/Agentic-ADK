@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.langengine.amap.sdk;
+package com.alibaba.langengine.amap.sdk.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -16,6 +16,10 @@
 
 package com.alibaba.langengine.baidumap.sdk;
 
+import com.alibaba.langengine.baidumap.sdk.request.PlaceSearchRequest;
+import com.alibaba.langengine.baidumap.sdk.request.WeatherRequest;
+import com.alibaba.langengine.baidumap.sdk.response.PlaceSearchResponse;
+import com.alibaba.langengine.baidumap.sdk.response.WeatherResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +29,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -36,6 +41,7 @@ import static com.alibaba.langengine.baidumap.BaiduMapConfiguration.BAIDU_MAP_AP
 import static com.alibaba.langengine.baidumap.BaiduMapConfiguration.BAIDU_MAP_API_URL;
 import static com.alibaba.langengine.baidumap.sdk.BaiduMapConstant.DEFAULT_TIMEOUT;
 import static com.alibaba.langengine.baidumap.sdk.BaiduMapConstant.PLACE_SEARCH_API_ENDPOINT;
+import static com.alibaba.langengine.baidumap.sdk.BaiduMapConstant.WEATHER_API_ENDPOINT;
 
 public class BaiduMapClient {
 
@@ -144,6 +150,61 @@ public class BaiduMapClient {
         placeSearchRequest.setQuery(query);
         placeSearchRequest.setRegion(region);
         return this.placeSearch(placeSearchRequest);
+    }
+
+    /**
+     * Get weather information based on request parameters
+     * Doc: <a href="https://lbs.baidu.com/faq/api?title=webapi/weather/base">...</a>
+     *
+     * @param request Weather request parameters
+     * @return Weather response
+     * @throws BaiduMapException when API call fails
+     */
+    public WeatherResponse getWeather(WeatherRequest request) throws BaiduMapException {
+        try {
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(BAIDU_MAP_API_URL + WEATHER_API_ENDPOINT).newBuilder();
+            urlBuilder.addPathSegment("");
+
+            // Add non-null parameters to query
+            if (request.getDistrictId() != null) {
+                urlBuilder.addQueryParameter("district_id", request.getDistrictId());
+            }
+            if (request.getLocation() != null) {
+                urlBuilder.addQueryParameter("location", request.getLocation());
+            }
+            urlBuilder.addQueryParameter("ak", apiKey);
+            if (request.getDataType() != null) {
+                urlBuilder.addQueryParameter("data_type", request.getDataType());
+            }
+            if (request.getOutput() != null) {
+                urlBuilder.addQueryParameter("output", request.getOutput());
+            }
+            if (request.getCoordtype() != null) {
+                urlBuilder.addQueryParameter("coordtype", request.getCoordtype());
+            }
+
+            Request httpRequest = new Request.Builder()
+                    .url(urlBuilder.build())
+                    .get()
+                    .build();
+
+            try (Response response = httpClient.newCall(httpRequest).execute()) {
+                if (!response.isSuccessful()) {
+                    throw new BaiduMapException("Baidu map API request failed with code: " + response.code());
+                }
+
+                if (response.body() == null) {
+                    throw new BaiduMapException("Baidu map API response body is null");
+                }
+
+                String responseBody = response.body().string();
+                return objectMapper.readValue(responseBody, WeatherResponse.class);
+            }
+        } catch (IOException e) {
+            throw new BaiduMapException("Error occurred while calling Baidu map weather API", e);
+        } catch (Exception e) {
+            throw new BaiduMapException("Unexpected error occurred while calling Baidu map weather API", e);
+        }
     }
 
 }

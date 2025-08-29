@@ -31,4 +31,6 @@ public final class AMapConstant {
 
     public static final String PLACE_SEARCH_API_ENDPOINT = "/place/text";
 
+    public static final String WEATHER_API_ENDPOINT = "/weather/weatherInfo";
+
 }

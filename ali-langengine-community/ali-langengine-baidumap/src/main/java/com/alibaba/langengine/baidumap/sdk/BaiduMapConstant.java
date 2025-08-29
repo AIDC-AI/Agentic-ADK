@@ -33,4 +33,7 @@ public final class BaiduMapConstant {
     public static int DEFAULT_TIMEOUT = 30;
 
     public static final String PLACE_SEARCH_API_ENDPOINT = "/place/v3/region";
+
+    public static final String WEATHER_API_ENDPOINT = "/weather/v1";
+
 }
