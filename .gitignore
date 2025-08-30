@@ -61,3 +61,15 @@ license-header.txt
 
 *.flattened-pom.xml
 /xx.txt
+
+# Maven
+.m2/
+*.resolver-status
+_remote.repositories
+*.lastUpdated
+maven-metadata-*.xml
+
+# Compiled
+*.jar
+*.war
+*.ear
